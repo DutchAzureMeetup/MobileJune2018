@@ -7,7 +7,7 @@ namespace AppFlix.Services
 {
     public class MovieService : IMovieService
     {
-        private const string API_BASE_URL = "http://solitary-surf-1833.getsandbox.com";
+        private const string API_BASE_URL = "YOUR_API_URL_HERE";
         IMovieApi _movieApi;
 
         public MovieService()
