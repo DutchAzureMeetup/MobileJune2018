@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\..\Contracts\MovieDetails.cs" Link="Models\MovieDetails.cs" />
+    <Compile Include="..\..\..\Contracts\MovieSummary.cs" Link="Models\MovieSummary.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Refit" Version="4.5.6" />
+    <PackageReference Include="Xamarin.Forms" Version="3.0.0.561731" />  
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\MovieDetailsPage.xaml.cs">
+      <DependentUpon>MovieDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MoviesPage.xaml.cs">
+      <DependentUpon>MoviesPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+</Project>

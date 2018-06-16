@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AppFlix.Views.MovieDetailsPage"
+             Title="{Binding Title}">
+    <StackLayout Spacing="20" Padding="15">
+        <Label Text="{Binding Movie.Title}" FontSize="Medium" FontAttributes="Bold"/>
+        <Label Text="{Binding Movie.Description}" FontSize="Small" FontAttributes="Italic"/>
+        <Label Text="{Binding Movie.Rating}" FontSize="Large"/>
+    </StackLayout>
+</ContentPage>
