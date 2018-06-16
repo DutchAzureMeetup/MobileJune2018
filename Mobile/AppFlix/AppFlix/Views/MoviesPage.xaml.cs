@@ -1,7 +1,7 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using AppFlix.ViewModels;
-using DutchAzureMeetup;
+using Common.Contracts;
 using AppFlix.Views;
 
 namespace AppFlix.Views

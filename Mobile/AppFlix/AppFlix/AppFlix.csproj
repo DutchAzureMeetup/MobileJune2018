@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\..\Contracts\MovieDetails.cs" Link="Models\MovieDetails.cs" />
-    <Compile Include="..\..\..\Contracts\MovieSummary.cs" Link="Models\MovieSummary.cs" />
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Models\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,6 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\..\Common\Common.csproj" />
   </ItemGroup>
 </Project>

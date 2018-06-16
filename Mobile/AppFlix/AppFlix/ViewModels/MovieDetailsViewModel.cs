@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using DutchAzureMeetup;
+using Common.Contracts;
 using Xamarin.Forms;
 
 namespace AppFlix.ViewModels

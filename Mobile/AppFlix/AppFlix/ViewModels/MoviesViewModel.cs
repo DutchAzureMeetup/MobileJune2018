@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
-using DutchAzureMeetup;
+using Common.Contracts;
 
 namespace AppFlix.ViewModels
 {

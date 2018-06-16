@@ -1,4 +1,4 @@
-﻿using DutchAzureMeetup;
+﻿using Common.Contracts;
 using Refit;
 using System.Collections.Generic;
 using System.Threading.Tasks;
