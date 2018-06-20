@@ -18,17 +18,7 @@ namespace AppFlix.Views
             BindingContext = viewModel = new MoviesViewModel();
         }
 
-        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
-        {
-            var item = args.SelectedItem as MovieSummary;
-            if (item == null)
-                return;
-
-            await Navigation.PushAsync(new MovieDetailsPage(new MovieDetailsViewModel(item)));
-
-            // Manually deselect item.
-            ItemsListView.SelectedItem = null;
-        }
+		// TODO: Bind to OnItemSelected
 
         protected override void OnAppearing()
         {

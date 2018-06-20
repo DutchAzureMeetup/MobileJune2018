@@ -26,25 +26,7 @@ namespace AppFlix.ViewModels
             if (IsBusy)
                 return;
 
-            IsBusy = true;
-
-            try
-            {
-                Movies.Clear();
-                var movies = await MovieService.GetMovies();
-                foreach (var movie in movies)
-                {
-                    Movies.Add(movie);
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
+			throw new NotImplementedException();
         }
     }
 }

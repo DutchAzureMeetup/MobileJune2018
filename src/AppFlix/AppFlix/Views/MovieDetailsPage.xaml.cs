@@ -16,11 +16,6 @@ namespace AppFlix.Views
             InitializeComponent();
         }
 
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            viewModel.LoadMovieCommand.Execute(null);
-        }
+		// TODO: Override OnAppearing
     }
 }
