@@ -4,9 +4,9 @@ Welcome to the Dutch Mobile & Azure Crossover Meetup! We will create a mobile ap
 
 ![Lab Overview](docs/lab.png "Lab Overview")
 
-# Azure Lab
+# Web API
 
-We've got a Cosmos DB instance up and running, pre-filled with a couple of movies. In this first part, you'll create a back-end API to expose the movie data to the client.
+We've got a Cosmos DB instance up and running, pre-filled with a couple of movies. In this first part, you'll create a back-end Web API to expose the movie data to the client.
 
 ## Create a back-end API to get movie data
 - Add a new **ASP.NET Core Web Application** project to the solution called *AppFlixApi*.
@@ -59,48 +59,23 @@ public async Task<IActionResult> Get(string id)
 
 - Start the API project, when you navigate to `api/movies`, you should see a list of movies.
 
-## Create your own Cosmos DB database
-If you want, you can try replacing the default Cosmos DB instance with your own: 
+## (Optional) Create your own Cosmos DB database
+If you want, you can replace the default Cosmos DB instance with your own: 
 
 - You can create a Cosmos DB of your own using the Azure Portal. Alternatively, you can download the [Cosmos DB Emulator](https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator).
 - Update the `CosmosEndpointUrl` and `CosmosAuthorizationKey` constants in the `CosmosDBHelper` class.
+- Now that you've got an empty database, add some movies to it! The format of the documents used in this tutorial is:
 
-## Create a Function to periodically import popular movies
-As lazy developers, we want our database to be updated automatically on a periodic basis. This is a perfect task for an Azure Function. In this part, you'll create a Function to get the most popular movies from The Movie Database website and import them into the Cosmos DB database.
-
-- Add a **Functions** project named `MovieImporter` to solution and select a **Timer trigger**.
-- Rename your function to `ImportPopularMovies`.
-- Add a reference to the *Common* project. 
-- Add the *TMDbLib 1.0.0* NuGet package. This package allows us to easily query The Movie Database website.
-- Add the following code to your function to get a list of popular movies and add them to the database:
-
-```csharp
-var tmdbClient = new TMDbClient("c6b31d1cdad6a56a23f0c913e2482a31");
-
-var movies = await tmdbClient.GetMoviePopularListAsync();
-
-using (var cosmosClient = CosmosDBHelper.CreateDocumentClient())
+```json
 {
-    var collectionUri = await cosmosClient.GetDocumentCollectionUri();
-
-    foreach (var movie in movies.Results)
-    {
-        var movieDetails = new MovieDetails
-        {
-            Id = $"tmdb:{movie.Id}",
-            Title = movie.Title,
-            Description = movie.Overview,
-            Rating = (decimal)movie.Popularity
-        };
-
-        await cosmosClient.UpsertDocumentAsync(collectionUri, movieDetails);
-    }
-}
+    "id": "1",
+    "title": "Raiders of the Lost Ark",
+    "description": "In 1936, archaeologist and adventurer Indiana Jones is hired by the U.S. government to find the Ark of the Covenant before Adolf Hitler's Nazis can obtain its awesome powers.",
+    "rating": 8.5
+ }
 ```
 
-- Running the function will import the movies into your Cosmos DB database. 
-
-# Mobile Lab
+# Mobile Application
 
 Now that we got our back-end functionality up and running in Azure, let's create an app to consume it. Inspect the `AppFlix` solution stucture:
 - The solution has a reference to the `Common`-project.
@@ -253,6 +228,45 @@ finally
 ```
 
 - You should now be able to start the app, retrieve an overview and navigate to the details-page as well.
+
+# Import Popular Movies from TheMovieDatabase
+As lazy developers, we want our database to be updated automatically on a periodic basis. This is a perfect task for an Azure Function. In this part, you'll create a Function to get the most popular movies from The Movie Database website and import them into the Cosmos DB database.
+
+## Create a Function to periodically import popular movies
+
+- Add a **Functions** project named `MovieImporter` to solution and select a **Timer trigger**.
+- Rename your function to `ImportPopularMovies`.
+- Add a reference to the *Common* project. 
+- Add the *TMDbLib 1.0.0* NuGet package. This package allows us to easily query The Movie Database website.
+- Add the following code to your function to get a list of popular movies and add them to the database:
+
+```csharp
+var tmdbClient = new TMDbClient("c6b31d1cdad6a56a23f0c913e2482a31");
+
+var movies = await tmdbClient.GetMoviePopularListAsync();
+
+using (var cosmosClient = CosmosDBHelper.CreateDocumentClient())
+{
+    var collectionUri = await cosmosClient.GetDocumentCollectionUri();
+
+    foreach (var movie in movies.Results)
+    {
+        var movieDetails = new MovieDetails
+        {
+            Id = $"tmdb:{movie.Id}",
+            Title = movie.Title,
+            Description = movie.Overview,
+            Rating = (decimal)movie.Popularity
+        };
+
+        await cosmosClient.UpsertDocumentAsync(collectionUri, movieDetails);
+    }
+}
+```
+
+- Running the function will import the movies into your Cosmos DB database. 
+
+
 
 # Stretch Goal
 
