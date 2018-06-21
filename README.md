@@ -1,8 +1,12 @@
 # Dutch Mobile & Azure Meetup 21-6-2018
 
-Welcome to the Dutch Mobile & Azure Crossover Meetup!
+Welcome to the Dutch Mobile & Azure Crossover Meetup! We will create a mobile application that let's you look up and view movie information. Here's the big picture:
+
+![Lab Overview](docs/lab.png "Lab Overview")
 
 # Azure Lab
+
+We've got a Cosmos DB instance up and running, pre-filled with a couple of movies. In this first part, you'll create a back-end API to expose the movie data to the client.
 
 ## Create a back-end API to get movie data
 - Add a new **ASP.NET Core Web Application** project to the solution called *AppFlixApi*.
@@ -56,10 +60,14 @@ public async Task<IActionResult> Get(string id)
 - Start the API project, when you navigate to `api/movies`, you should see a list of movies.
 
 ## Create your own Cosmos DB database
+If you want, you can try replacing the default Cosmos DB instance with your own: 
+
 - You can create a Cosmos DB of your own using the Azure Portal. Alternatively, you can download the [Cosmos DB Emulator](https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator).
 - Update the `CosmosEndpointUrl` and `CosmosAuthorizationKey` constants in the `CosmosDBHelper` class.
 
 ## Create a Function to periodically import popular movies
+As lazy developers, we want our database to be updated automatically on a periodic basis. This is a perfect task for an Azure Function. In this part, you'll create a Function to get the most popular movies from The Movie Database website and import them into the Cosmos DB database.
+
 - Add a **Functions** project named `MovieImporter` to solution and select a **Timer trigger**.
 - Rename your function to `ImportPopularMovies`.
 - Add a reference to the *Common* project. 
@@ -245,3 +253,7 @@ finally
 ```
 
 - You should now be able to start the app, retrieve an overview and navigate to the details-page as well.
+
+# Stretch Goal
+
+If you've got time left, try to send a push notification to your mobile application when the database is updated with new movies. Azure offers the Notification Hub service for this scenario. You can find Step-by-Step Tutorials on implementing Notification Hubs [here](https://docs.microsoft.com/en-us/azure/notification-hubs/).

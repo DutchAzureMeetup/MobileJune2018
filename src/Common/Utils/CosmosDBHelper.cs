@@ -8,7 +8,7 @@ namespace Common.Utils
     public static class CosmosDBHelper
     {
         private const string CosmosEndpointUrl = "https://azuremeetupjune.documents.azure.com:443/";
-        private const string CosmosAuthorizationKey = "<ADD_BEFORE_MEETUP>";
+        private const string CosmosAuthorizationKey = "FT1bXHRRLVnBuTKCO9cAn3908WcZMyUcFmnGwblps2iGzFm73iMwHoRZ1eGaiebjsw2x6R7IjUSYlpXBsCs2Ng==";
         private const string CosmosDatabaseName = "MovieDB";
         private const string CosmosCollectionName = "Movies";
 
